@@ -6,3 +6,5 @@ Let's you control and visualizes the LED for you using cool technologies includi
 
 ## Running the server
 ```npm start```
+
+Now open your browser on http://127.0.0.1:3000

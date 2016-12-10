@@ -50,7 +50,7 @@ function setup () {
 		canvasPanel.removeClass("red")
 		canvasPanel.addClass("green")
 
-		logger.html(logger.html() + "<span class='green-text'>Connected to Socket.io</span>\n")
+		logger.html(logger.html() + "Connected to Socket.io\n")
 	})
 
 	socket.on("connect_error", function () {
@@ -61,42 +61,31 @@ function setup () {
 		logger.html("Error connecting to Socket.io")
 	})
 
-	saveLocalBtn.on("click", function (event) {
-		saveCanvas(ledCanvas, "rgbVisualization", "png")
-	})
+	socket.on('changeBrightness', function(data){
+	    logger.html(logger.html() + 'Brightness ' + data.brightness + "\n")
+	    changeBrightness(data.brightness);
+	});
+	// Initial value
+	value = 200;
+	jQuery('#brightnessRangeInput').val(value);
+	changeBrightness(value);
 
-	saveImgurBtn.on("click", function (event) {
-		var imageEndpoint = "https://api.imgur.com/3/upload"
+	socket.on('changeColor', function(data){
+	    logger.html(logger.html() + 'Color ' + data.color + "\n")
+	    changeColor(data.color);
+	});
+	// Initial value
+	value = "#0084FF";
+	jQuery('#colorPickerInput').val(value);
+	changeColor(value);
+}
 
-		var dataURL = ledCanvas.elt.toDataURL().split(",")[1]
+function changeBrightness(value) {
+	jQuery('#logger').css('opacity', value / 255);
+}
 
-		if (!dataURL) {
-			return;
-		}
-
-		$.ajax({
-			headers: {
-				Authorization: "Client-ID c4457712525dc5a" 
-			},
-			type: "POST",
-			url: imageEndpoint,
-			dataType: "json",
-			data: {
-				image: dataURL,
-				type: "base64",
-				title: "RGB Led Visualizer Canvas!",
-				description: "See RGB Led Visualizer at https://abdulhannanali.github.io/rgb-led-control"
-			},
-			success: function (data, status, xhr) {
-				if (data && data.success) {
-					window.open(data.data.link)
-				}
-			},
-			error: function (error) {
-				alert("Error occured while uploading to imgur.com")
-			}
-		})
-	})
+function changeColor(color) {
+	jQuery('#logger').css('background', color);
 }
 
 function draw () {

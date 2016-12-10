@@ -3,10 +3,18 @@
 		<title>RGB LED Visualizer!!!</title>
 		<link rel="stylesheet" href="./bower_components/Materialize/dist/css/materialize.min.css">
 		<link rel="stylesheet" href="./colorpicker/css/colorpicker.css">
+		<style>
+			.card-panel2, .intro {
+				display: none;
+			}
+			#logger {
+				height: 10em;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container">
-			<header class="row">
+			<header class="row intro">
 				<h1 id="titleHead"></h1>
 				<p>RGB Led Visualizer let's you control the color, brightness and in future other stuff of the rgb led in realtime using browser and also uses <a href="https://p5js.org">p5.js</a> to visualize it on the browser too.</p>
 				<p>Fork and Star it's <a href="https://github.com/abdulhannanali/rgb-led-control">Github Repository</a></p>
@@ -22,12 +30,12 @@
 						<div class="row">
 							<p class="range-field">
 								Select brightness
-								<input type="range" id="brightnessRangeInput" min="0" max="255">
+								<input type="range" id="brightnessRangeInput" min="0" max="255" value="200">
 							</p>
 						</div>
 					</div>
 			</div>
-			<div class="row card-panel">
+			<div class="row card-panel2">
 				<div class="center card-panel" id="ledCanvas"></div>
 				<div class="row center">
 					<p>
